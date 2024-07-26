@@ -141,7 +141,6 @@ class PadRacingGame extends Forge2DGame with KeyboardEvents {
     final cameras = List.generate(numberOfPlayers, (i) {
       return CameraComponent(
         world: cameraWorld,
-     
       )
         ..viewfinder.anchor = Anchor.center
         ..viewfinder.zoom = playZoom;
@@ -152,7 +151,6 @@ class PadRacingGame extends Forge2DGame with KeyboardEvents {
     final mapCameras = List.generate(numberOfPlayers, (i) {
       return CameraComponent(
         world: cameraWorld,
- 
       )
         ..viewfinder.anchor = Anchor.topLeft
         ..viewfinder.zoom = mapCameraZoom;
@@ -207,7 +205,7 @@ class PadRacingGame extends Forge2DGame with KeyboardEvents {
 
   @override
   KeyEventResult onKeyEvent(
-    RawKeyEvent event,
+    KeyEvent event,
     Set<LogicalKeyboardKey> keysPressed,
   ) {
     super.onKeyEvent(event, keysPressed);
@@ -353,7 +351,7 @@ List<Ball> createBalls(Vector2 trackSize, List<Wall> walls, Ball bigBall) {
   return balls;
 }
 
-class Car extends BodyComponent<PadRacingGame> with HasGameRef<PadRacingGame>{
+class Car extends BodyComponent<PadRacingGame> with HasGameRef<PadRacingGame> {
   Car({required this.playerNumber, required this.cameraComponent})
       : super(
           priority: 3,
@@ -516,12 +514,12 @@ class GameOver extends StatelessWidget {
               children: [
                 Text(
                   'Player ${game.winner!.playerNumber + 1} wins!',
-                  style: textTheme.headline1,
+                  style: textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 10),
                 Text(
                   'Time: ${game.timePassed}',
-                  style: textTheme.bodyText1,
+                  style: textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(
@@ -726,11 +724,11 @@ class Menu extends StatelessWidget {
                   children: [
                     Text(
                       'PadRacing',
-                      style: textTheme.headline1,
+                      style: textTheme.headlineMedium,
                     ),
                     Text(
                       'First to 3 laps win',
-                      style: textTheme.bodyText1,
+                      style: textTheme.bodyMedium,
                     ),
                     const SizedBox(height: 10),
                     ElevatedButton(
@@ -741,7 +739,7 @@ class Menu extends StatelessWidget {
                     ),
                     Text(
                       'Arrow keys',
-                      style: textTheme.bodyText2,
+                      style: textTheme.bodyMedium,
                     ),
                     const SizedBox(height: 10),
                     ElevatedButton(
@@ -752,7 +750,7 @@ class Menu extends StatelessWidget {
                     ),
                     Text(
                       'ASDW',
-                      style: textTheme.bodyText2,
+                      style: textTheme.bodyMedium,
                     ),
                   ],
                 ),
@@ -763,11 +761,11 @@ class Menu extends StatelessWidget {
                         children: [
                           TextSpan(
                             text: 'Made by ',
-                            style: textTheme.bodyText2,
+                            style: textTheme.bodyMedium,
                           ),
                           TextSpan(
                             text: 'Lukas Klingsbo',
-                            style: textTheme.bodyText2
+                            style: textTheme.bodyMedium
                                 ?.copyWith(color: GameColors.green.color),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
@@ -787,11 +785,11 @@ class Menu extends StatelessWidget {
                         children: [
                           TextSpan(
                             text: 'Checkout the ',
-                            style: textTheme.bodyText2,
+                            style: textTheme.bodyMedium,
                           ),
                           TextSpan(
                             text: 'repository',
-                            style: textTheme.bodyText2
+                            style: textTheme.bodyMedium
                                 ?.copyWith(color: GameColors.green.color),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
@@ -804,7 +802,8 @@ class Menu extends StatelessWidget {
                           ),
                         ],
                       ),
-                    ),                  ],
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -844,26 +843,25 @@ class PadracingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = ThemeData(
       textTheme: TextTheme(
-        headline1: GoogleFonts.vt323(
+        headlineSmall: GoogleFonts.vt323(
           fontSize: 35,
           color: Colors.white,
         ),
-        button: GoogleFonts.vt323(
+        titleSmall: GoogleFonts.vt323(
           fontSize: 30,
           fontWeight: FontWeight.w500,
         ),
-        bodyText1: GoogleFonts.vt323(
+        bodyMedium: GoogleFonts.vt323(
           fontSize: 28,
           color: Colors.grey,
         ),
-        bodyText2: GoogleFonts.vt323(
+        bodySmall: GoogleFonts.vt323(
           fontSize: 18,
           color: Colors.grey,
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          primary: Colors.black,
           minimumSize: const Size(150, 50),
         ),
       ),
@@ -890,7 +888,7 @@ class PadracingWidget extends StatelessWidget {
         loadingBuilder: (context) => Center(
           child: Text(
             'Loading...',
-            style: Theme.of(context).textTheme.headline1,
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
         ),
         overlayBuilderMap: {
